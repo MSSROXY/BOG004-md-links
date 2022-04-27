@@ -3,6 +3,10 @@ var clc = require('cli-color');
 var path = require('path');
 const [, ,route, directory] = process.argv;
 
+//para obtener la ruta absoluta 
+const absPath = path.resolve(route)
+console.log(absPath);
+
 console.log(clc.red.bgWhite('Esta es la ruta a analizar:', route));
 console.log(clc.blue.bgWhite('Y este es el directorio a enlistar:', directory))
 var files = fs.readdirSync(directory);
