@@ -41,19 +41,41 @@ const listMDfiles = (userRoute) => {
 };
 
 const myMDfiles = listMDfiles(myRoute);
-console.log(clc.red.bgWhite('este es el resultado de la f recursiva: '), myMDfiles);
 
 // empezamos con la promesa para leer los archivos que estan en un array
-const readMDfiles = (MDarray) => {
-    MDarray.forEach(md => {
-        fs.promises.readFile(md, 'utf-8')
+let linksMD = []; //array para enlistar los links
+let routeMD = []; //array para enlistar la ruta de los archivos.md
+let objectMD = {}; //este será mi objeto resultado
+const readMDfiles = (mdArray) => {
+    mdArray.forEach(mdFile => {
+        fs.promises.readFile(mdFile, 'utf-8')
         .then((result)=> {
-            console.log(clc.red.bgWhite('este es el contenido de cada archivo.md'), result)
+            const expLink = /!*\[(.+?)\]\((.+?)\)/gi;
+            const matchLinks = [... result.match(expLink)];
+
+            matchLinks.forEach(link => {
+                linksMD.push(link);
+                routeMD.push(mdFile);
+            });
+
+            objectMD = linksMD.map((url) => {
+                let index = linksMD.indexOf(url);
+                const splitLink = url.split('](');
+                const text = splitLink[0].slice(1);
+                const href = splitLink[1].slice(0, -1);
+                
+                return {
+                    href,
+                    text,
+                    file : routeMD[index],
+                }
+            })
+            console.log(objectMD)
         })
         .catch((error)=>{
             console.log('este es el error', error);
         })
     })
 }
+readMDfiles(myMDfiles);
 
-readMDfiles(myMDfiles)
