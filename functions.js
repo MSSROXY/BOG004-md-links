@@ -2,7 +2,6 @@
 const fs = require('fs');
 const path = require('path');
 var clc = require('cli-color');
-const { resolve } = require('path');
 const [, ,route] = process.argv;
 
 // función para convertir ruta relativa en absoluta
@@ -52,36 +51,44 @@ const readMDfiles = (mdFile) => {
     return new Promise((resolve, reject) => {
         fs.readFile(mdFile, 'utf-8', (error,data) => {
             if (error) return reject(error);
-            else return resolve(data);
+            else {
+                // resolve(data)
+                resolve ({
+                    route : mdFile,
+                    fileContent : data
+                })
+            };
         })
     })
 }
 
 Promise.all(myMDfiles.map(readMDfiles))
-.then((data) => {
+.then((data) => { 
+    console.log(data);
     const expLink = /!*\[(.+?)\]\((.+?)\)/gi;
-    const matchLinks = [... data.toString().match(expLink)];
-
+    data.forEach(item => {
+        const matchLinks = [... item.fileContent.toString().match(expLink)];
         matchLinks.forEach(link => {
             linksMD.push(link);
+            routeMD.push(item.route)
         });
+    })
 
-    // console.log(linksMD)
     // return linksMD
 
-    objectMD = linksMD.map((url) => {
-        let index = linksMD.indexOf(url);
-        const splitLink = url.split('](');
+    objectMD = linksMD.map((totalLink) => {
+        let index = linksMD.indexOf(totalLink);
+        const splitLink = totalLink.split('](');
         const text = splitLink[0].slice(1);
         const href = splitLink[1].slice(0, -1);
                     
         return {
             href,
             text,
-            // file : routeMD[index],
+            file : routeMD[index]
             }
     })
-    console.log(objectMD);
+    console.log(objectMD)
     return objectMD
 })
 .catch(error => console.log(error))
