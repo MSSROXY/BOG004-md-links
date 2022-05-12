@@ -5,16 +5,16 @@
     "node": ">=14.x"
   },
   "description": "## Índice",
-  "main": "index.js",
+  "main": "./mdlinks.js",
   "directories": {
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --coverage"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MSSROXY/BOG004-md-links.git"
+    "url": "https://github.com/MSSROXY/BOG004-md-links.git"
   },
   "keywords": [
     "markdown",
@@ -29,12 +29,13 @@
   ],
   "author": "Roxy Solano",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/MSSROXY/BOG004-md-links/issues"
+  "bin": {
+    "mdLinks": "./mdlinks.js"
   },
   "homepage": "https://github.com/MSSROXY/BOG004-md-links#readme",
   "dependencies": {
     "axios": "^0.27.2",
-    "cli-color": "^2.0.2"
+    "cli-color": "^2.0.2",
+    "eslint": "^8.15.0"
   }
 }

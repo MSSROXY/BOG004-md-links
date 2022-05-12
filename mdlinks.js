@@ -1,5 +1,4 @@
-const [, ,route, ...options] = process.argv;
-
+#!/usr/bin/env node
 const {
   clc,
   routeAbsolute,
@@ -13,11 +12,15 @@ const {
   statValidateOption,
 } = require('./cli')
 
+const [, ,route, ...options] = process.argv;
+
 // convierto la ruta en absoluta
 let myRoute = routeAbsolute(route);
 
 // obtengo array de mdFiles
 const myMDfiles = listMDfiles(myRoute);
+console.log(myMDfiles);
+
 
 // función mdLinks
 const mdLinks = (array, options) => {
@@ -63,3 +66,5 @@ const mdLinks = (array, options) => {
 mdLinks(myMDfiles, options)
 .then(data => data)
 .catch(error => console.log(error))
+
+module.exports = { mdLinks }

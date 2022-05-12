@@ -1,6 +1,7 @@
 // si el usuario pasa options 
 // cada una de las funciones recibe un array
-// cuando le pase el argumento el array será el resultante de la funcion getLinksInfo (href,text,file)
+// cuando le pase el argumento el array será el resultante de la funcion que retorna un array archivos de md (listMdfiles)
+
 const {
     getLinksInfo,
     validateHttp
@@ -9,11 +10,11 @@ const {
 const validateOption = (array) => {
     return new Promise((resolve,reject) => {
         getLinksInfo(array)
-        .then(data => Promise.allSettled(data.map(el =>
+        .then(data => Promise.allSettled(data.map(el => 
             validateHttp(el.href, el.text, el.file)
         )))
         .then(dataF => resolve(dataF.map(el => el.value || el.reason)))
-        .catch(err => reject(err))
+        .catch(err => reject(err, 'Error del validateOption'))
     })
 }
 
@@ -57,3 +58,4 @@ module.exports = {
     statOption,
     statValidateOption
 }
+

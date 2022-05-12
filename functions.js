@@ -9,16 +9,16 @@ const axios = require('axios').default;
 
 // función para convertir ruta relativa en absoluta
 const routeAbsolute = (userRoute) => {
-    if(!fs.existsSync(userRoute)){
-        console.log(clc.red(`
-        ╔════════════════════════════════╗ 
-        ║ La ruta ingresada no es válida ║ 
-        ╚════════════════════════════════╝ `));
-        process.exit()
-    }
     if(path.isAbsolute(userRoute)){
         return userRoute;
     }
+    // if(!fs.existsSync(userRoute)){
+    //     console.log(clc.red(`
+    //     ╔════════════════════════════════════════════╗ 
+    //     ║ La ruta ingresada no es válida o no existe ║ 
+    //     ╚════════════════════════════════════════════╝ `));
+    //     process.exit()
+    // }
     else {
         const absPath = path.resolve(userRoute)
         return absPath;
@@ -42,13 +42,13 @@ const listMDfiles = (userRoute) => {
             })
         })
     }
-    if(MDfiles.length === 0){
-        console.log(clc.red(`
-        ╔═════════════════════════════════════╗ 
-        ║ No se encontraron archivos markdown ║ 
-        ╚═════════════════════════════════════╝ `))
-        process.exit()
-    }
+    // if(MDfiles.length === 0){
+    //     console.log(clc.red(`
+    //     ╔═════════════════════════════════════╗ 
+    //     ║ No se encontraron archivos markdown ║ 
+    //     ╚═════════════════════════════════════╝ `))
+    //     process.exit()
+    // }
     return MDfiles;
 };
 
@@ -76,11 +76,13 @@ const getLinksInfo = (array) => {
         .then(data => {
             const expLink = /!*\[(.+?)\]\((.+?)\)/gi;
             data.forEach(item => {
-                const matchLinks = [... item.fileContent.toString().match(expLink)];
-                matchLinks.forEach(link => {
-                    linksMD.push(link);
-                    routeMD.push(item.route)
-                });
+                const matchLinks = item.fileContent.match(expLink);
+                if(matchLinks){
+                    matchLinks.forEach(link => {
+                        linksMD.push(link);
+                        routeMD.push(item.route)
+                    });
+                }
             })
             resultMD = linksMD.map((totalLink) => {
                 let index = linksMD.indexOf(totalLink);
@@ -94,31 +96,29 @@ const getLinksInfo = (array) => {
                     file : routeMD[index]
                     }
             })
-            resolve(resultMD)})
+            resolve(resultMD)
+        })
         .catch((err) => reject('Error del getLinks',err))
     })
 } 
 
-const validateHttp = (url, text, file ) => {
+const validateHttp = (url, text, file) => {
   return new Promise((resolve, reject) => {
       axios.get(url)
       .then(res => resolve({
-         href : url,
-         text : text,
-         file : file,
-         status : res.status,
-         statusText: res.statusText
+          href : url,
+          text,
+          file,
+          status: res.status,
+          statusText: res.statusText
       }))
-      .catch((error)=> {
-        reject({
-        href : url,
-        text : text,
-        file : file,
-        status : error.response.status,
-        statusText :error.response.statusText,
-    })}
-      
-        )
+      .catch(err => reject({
+          href: url,
+          text,
+          file,
+          status: 404,
+          statusText: 'FAIL'
+      }))
   })
 }
 
