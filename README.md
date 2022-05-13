@@ -20,7 +20,7 @@ La librería mdLinks permite leer y analizar archivos en formato `Markdown`, par
 
 Para la instalación de la librería deberá escribir el siguiente comando en la terminal: 
 
-`npm i md-links-mssroxy`
+<p> `npm i md-links-mssroxy`
 
 Una vez instalada ya puede empezar a usarla.
 
@@ -40,14 +40,15 @@ Donde:
 
 ### Retornos
 
-- ** `<path-to-file>` ** : no ingresa ninguna opción, no se realiza ninguna validación
+#### `<path-to-file>` : no ingresa ninguna opción, no se realiza ninguna validación
 
 * `href`: URL encontrada.
 * `text`: Texto que aparecía dentro del link (`<a>`).
 * `file`: Ruta del archivo donde se encontró el link.
 
+![no-option](https://github.com/MSSROXY/BOG004-md-links/blob/development/img/no%20options.png)
 
-- ** `<path-to-file> --validate || <path-to-file> --v` ** : se solicita validación de cada link encontrado
+#### `<path-to-file> --validate || <path-to-file> --v` : se solicita validación de cada link encontrado
 
 * `href`: URL encontrada.
 * `text`: Texto que aparecía dentro del link (`<a>`).
@@ -55,16 +56,22 @@ Donde:
 * `status`: Código de respuesta HTTP.
 * `ok`: Mensaje `fail` en caso de fallo u `ok` en caso de éxito.
 
-- ** `<path-to-file> --stats || <path-to-file> --s` ** : se solicita estadísticas de los links
+![validate-option](https://github.com/MSSROXY/BOG004-md-links/blob/development/img/only%20validate.png)
+
+#### `<path-to-file> --stats || <path-to-file> --s` : se solicita estadísticas de los links
 
 * `Total`: Cantidad de links encontrados
 * `Unique` : Cantidad de links únicos
 
-- ** `<path-to-file> --validate --stats || <path-to-file> --v --s` ** : se solicita validación y estadísticas de los links
+![stats-option](https://github.com/MSSROXY/BOG004-md-links/blob/development/img/only%20stats.png)
+
+#### `<path-to-file> --validate --stats || <path-to-file> --v --s` : se solicita validación y estadísticas de los links
 
 * `Total`: Cantidad de links encontrados
 * `Unique` : Cantidad de links únicos
 * `Broken` : Cantidad de links rotos encontrados
+
+![validate-stats-option](https://github.com/MSSROXY/BOG004-md-links/blob/development/img/validate%20y%20stats.png)
 
 ### Consideraciones
 
