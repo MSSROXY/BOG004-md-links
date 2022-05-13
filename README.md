@@ -48,7 +48,7 @@ Donde:
 
 ![no-option](https://github.com/MSSROXY/BOG004-md-links/blob/development/img/no%20options.png)
 
-#### `<path-to-file> --validate || <path-to-file> --v` : se solicita validación de cada link encontrado
+#### `<path-to-file> --validate` o `<path-to-file> --v` : se solicita validación de cada link encontrado
 
 * `href`: URL encontrada.
 * `text`: Texto que aparecía dentro del link (`<a>`).
@@ -58,14 +58,14 @@ Donde:
 
 ![validate-option](https://github.com/MSSROXY/BOG004-md-links/blob/development/img/only%20validate.png)
 
-#### `<path-to-file> --stats || <path-to-file> --s` : se solicita estadísticas de los links
+#### `<path-to-file> --stats` o `<path-to-file> --s` : se solicita estadísticas de los links
 
 * `Total`: Cantidad de links encontrados
 * `Unique` : Cantidad de links únicos
 
 ![stats-option](https://github.com/MSSROXY/BOG004-md-links/blob/development/img/only%20stats.png)
 
-#### `<path-to-file> --validate --stats || <path-to-file> --v --s` : se solicita validación y estadísticas de los links
+#### `<path-to-file> --validate --stats` o `<path-to-file> --v --s` : se solicita validación y estadísticas de los links
 
 * `Total`: Cantidad de links encontrados
 * `Unique` : Cantidad de links únicos
