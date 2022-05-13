@@ -88,14 +88,20 @@ describe("Retornar un objeto con información de links ", () => {
 });
 
 
-// describe("Archivos con extensión md", () => {
-//   it("es una función", () => {
+
+// describe("", () => {
+//   it("listMDfiles es una función", () => {
 //     expect(typeof listMDfiles).toBe("function");
 //   });
 
-  // it("recibe una ruta relativa y la convierte a absoluta", () => {
-  //   let userPathTest = 'resources/prueba.md';
-  //   let result = '/Users/roxysolanopino/Documents/Laboratoria/BOG004-md-links/resources/prueba.md';
-  //   expect(routeAbsolute(userPathTest)).toEqual(result);
-//   // })
-// });
+//   it("recibe una ruta, tiene que entrar al directorio y encontrar los archivos md", () => {
+//     let userRoute = 'resources';
+//     let result = [
+//       'resources/prueba.md',
+//       'resources/prueba2.md',
+//       'resources/prueba3.md',
+//       'resources/prueba4.md'
+//     ]
+//     expect(listMDfiles(userRoute)).toEqual(result);
+//   });
+// })

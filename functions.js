@@ -12,13 +12,13 @@ const routeAbsolute = (userRoute) => {
     if(path.isAbsolute(userRoute)){
         return userRoute;
     }
-    // if(!fs.existsSync(userRoute)){
-    //     console.log(clc.red(`
-    //     ╔════════════════════════════════════════════╗ 
-    //     ║ La ruta ingresada no es válida o no existe ║ 
-    //     ╚════════════════════════════════════════════╝ `));
-    //     process.exit()
-    // }
+    if(!fs.existsSync(userRoute)){
+        console.log(clc.red(`
+        ╔════════════════════════════════════════════╗ 
+        ║ La ruta ingresada no es válida o no existe ║ 
+        ╚════════════════════════════════════════════╝ `));
+        process.exit()
+     }
     else {
         const absPath = path.resolve(userRoute)
         return absPath;
@@ -29,27 +29,28 @@ const routeAbsolute = (userRoute) => {
 // si se ingresa un archivo.md solo muestra el archivo
 
 const listMDfiles = (userRoute) => {
-    let MDfiles = [];
+    const separator = process.platform === "win32" || process.platform === "win64" ? "\\" : "/";
+    let myMdfiles = [];
     if(fs.statSync(userRoute).isFile() && path.extname(userRoute) === '.md'){
-        MDfiles.push(userRoute);
+        myMdfiles.push(userRoute);
     }
     else if(fs.statSync(userRoute).isDirectory()){
         const directory = userRoute;
         let contentDirectory = fs.readdirSync(directory);
         contentDirectory.forEach(elem => {
-            listMDfiles(userRoute + '/' + elem).forEach(elem => {
-                MDfiles.push(elem);
+            listMDfiles(userRoute + separator + elem).forEach(elem => {
+                myMdfiles.push(elem);
             })
         })
     }
-    // if(MDfiles.length === 0){
-    //     console.log(clc.red(`
-    //     ╔═════════════════════════════════════╗ 
-    //     ║ No se encontraron archivos markdown ║ 
-    //     ╚═════════════════════════════════════╝ `))
-    //     process.exit()
-    // }
-    return MDfiles;
+    if(myMdfiles.length === 0){
+        console.log(clc.red(`
+        ╔═════════════════════════════════════╗ 
+        ║ No se encontraron archivos markdown ║ 
+        ╚═════════════════════════════════════╝ `))
+        process.exit()
+    }
+    return myMdfiles;
 };
 
 // promesa de lectura de archivos

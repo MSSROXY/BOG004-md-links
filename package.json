@@ -1,5 +1,5 @@
 {
-  "name": "md-links",
+  "name": "md-links-mssroxy",
   "version": "0.1.0",
   "engines": {
     "node": ">=14.x"
@@ -30,7 +30,7 @@
   "author": "Roxy Solano",
   "license": "ISC",
   "bin": {
-    "mdLinks": "./mdlinks.js"
+    "md-links": "./mdlinks.js"
   },
   "homepage": "https://github.com/MSSROXY/BOG004-md-links#readme",
   "dependencies": {

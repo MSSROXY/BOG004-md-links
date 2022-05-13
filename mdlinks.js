@@ -18,14 +18,13 @@ const validate = optionsUser.includes('--v') || optionsUser.includes('--validate
 
 const stats = optionsUser.includes('--s') || optionsUser.includes('--stats') ? true : false;
 
-// convierto la ruta en absoluta
-let myRoute = routeAbsolute(route);
-
 //funcion 2 mdlinks 
-const mdLinks = (path, options) => {
-    // obtengo myMDfiles de mdFiles
-    const myMDfiles = listMDfiles(path);
+const mdLinks = (path , options) => {
     return new Promise ((resolve, reject) => {
+        //convierto la ruta en absoluta
+        let myRoute = routeAbsolute(path);
+        // obtengo myMDfiles que tiene un array de archivos md
+        const myMDfiles = listMDfiles(myRoute);
         if(!options.validate && !options.stats){
             getLinksInfo(myMDfiles)
             .then(data => resolve(data))
@@ -46,54 +45,10 @@ const mdLinks = (path, options) => {
     })
 }
 
-mdLinks(myRoute, { validate, stats })
+
+mdLinks(route, { validate, stats })
 .then(data => console.log(data))
 .catch(err => console.log(err))
 
-
-// función mdLinks
-// const mdLinks = (myMDfiles, options) => {
-//   if(options == '--validate'){
-//       return new Promise((resolve, reject) => {
-//           validateOption(myMDfiles)
-//           .then(data => resolve(console.log(clc.magentaBright(`
-//           ▂ ▃ ▅ ▆ █ Links Validados █ ▆ ▅ ▃ ▂  
-//           `),
-//           data)))
-//           .catch(err => reject(err))
-//       })
-//   } else if(options == '--stats'){
-//       return new Promise((resolve, reject) => {
-//           statOption(myMDfiles)
-//           .then(data => resolve(console.log(clc.magentaBright(`
-//           ▂ ▃ ▅ ▆ █ Stats de Links █ ▆ ▅ ▃ ▂  
-//           `))
-//           ,console.table(data)))
-//           .catch(err => reject(err))
-//       })
-//   } else if(options.includes('--validate' && '--stats')){
-//       return new Promise((resolve, reject) => {
-//           statValidateOption(myMDfiles)
-//           .then(data => resolve(console.log(clc.magentaBright(`
-//           ▂ ▃ ▅ ▆ █ Validación y stats de Links █ ▆ ▅ ▃ ▂  
-//           `))
-//           ,console.table(data)))
-//           .catch((err)=> reject(err))
-//       })
-//   } else {
-//       return new Promise((resolve, reject) => {
-//           getLinksInfo(myMDfiles)
-//               .then(data => resolve(console.log(clc.magentaBright(`
-//               ▂ ▃ ▅ ▆ █ Links encontrados █ ▆ ▅ ▃ ▂  
-//               `),
-//               data)))
-//               .catch(err => reject(err))
-//       })
-//   }
-// }
-
-// mdLinks(myMDfiles, optionsUser)
-// .then(data => data)
-// .catch(error => console.log(error))
 
 module.exports = { mdLinks }
