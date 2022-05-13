@@ -20,7 +20,7 @@ La librería mdLinks permite leer y analizar archivos en formato `Markdown`, par
 
 Para la instalación de la librería deberá escribir el siguiente comando en la terminal: 
 
-<p> `npm i md-links-mssroxy`
+`npm i md-links-mssroxy`
 
 Una vez instalada ya puede empezar a usarla.
 
