@@ -33,8 +33,8 @@
     "md-links": "./mdlinks.js"
   },
   "bugs": {
-    "https://github.com/MSSROXY/BOG004-md-links.git"
-  }
+    "url":"https://github.com/MSSROXY/BOG004-md-links.git"
+  },
   "homepage": "https://github.com/MSSROXY/BOG004-md-links#readme",
   "dependencies": {
     "axios": "^0.27.2",
